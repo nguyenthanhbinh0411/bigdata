@@ -82,7 +82,8 @@ fviz_cluster(kmeans_result, data = covid_scaled, geom = "point", ellipse.type = 
   theme(legend.position = "top")
 ```
 
-![Biểu đồ trực quan hóa kết quả phân cụm](image\image1.png)
+![image](https://github.com/user-attachments/assets/6e133fc1-6c28-4c82-a253-bcb1c83f8010)
+
 
 **Biểu đồ:** Thể hiện phần trăm ca nhiễm của từng cụm:
 
@@ -98,7 +99,7 @@ ggplot(cluster_cases, aes(x = Cluster, y = Percentage, fill = Cluster)) +
   theme_minimal()
 ```
 
-![Biểu đồ Thể hiện phần trăm ca nhiễm của từng cụm](image\image2.png)
+![image](https://github.com/user-attachments/assets/74e2e142-ca36-4a26-8735-99600a929b16)
 
 ### 5.3. Biểu đồ số ca nhiễm theo thời gian
 
@@ -115,7 +116,8 @@ ggplot(covid_summary, aes(x = ObservationDate, y = Total_Confirmed)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Xoay nhãn trục X cho dễ đọc
 ```
 
-![Biểu đồ số ca nhiễm theo thời gian](image\image3.png)
+![image](https://github.com/user-attachments/assets/c2625af9-3275-4d90-83e5-e86f306e7e14)
+
 
 ## 6. Trực quan hóa Dữ liệu
 
@@ -135,7 +137,8 @@ ggplot(covid_latest, aes(x = Total_Confirmed, y = Total_Deaths, color = as.facto
   theme(legend.position = "top")
 ```
 
-![Biểu đồ phân tán số ca nhiễm và tử vong](image\image4.png)
+![image](https://github.com/user-attachments/assets/e23783cc-98c7-463a-987f-fdc0987e5988)
+
 
 ### 6.2. Heatmap mức độ tập trung dịch bệnh
 
@@ -145,7 +148,8 @@ ggplot(covid_latest, aes(x = Total_Confirmed, y = Total_Deaths, color = as.facto
 plot_heatmap(c(top_10_countries, "Total_Confirmed"), "Heatmap - 10 quốc gia nhiễm cao nhất", "Total_Confirmed", "Total_Confirmed")
 ```
 
-![Heatmap cho 10 quốc gia có số ca nhiễm cao nhất](image\image5.png)
+![image](https://github.com/user-attachments/assets/6183003f-9902-4cca-9840-9ee27bd73c62)
+
 
 **Biểu đồ:** Heatmap cho 10 quốc gia có số tử vong cao nhất:
 
@@ -153,7 +157,8 @@ plot_heatmap(c(top_10_countries, "Total_Confirmed"), "Heatmap - 10 quốc gia nh
 plot_heatmap(c(top_10_death_countries, "Total_Deaths"), "Heatmap - 10 quốc gia có số ca tử vong cao nhất", "Total_Deaths", "Total_Deaths")
 ```
 
-![Heatmap cho 10 quốc gia có số tử vong cao nhất](image\image6.png)
+![image](https://github.com/user-attachments/assets/e97a7a13-9d9d-48e3-b58e-5c1afe645355)
+
 
 ### 6.3. Biểu đồ hiển thị tổng số ca mắc, hồi phục và tử vong của 10 quốc gia có số ca mắc cao nhất
 
@@ -173,7 +178,7 @@ ggplot(top_countries_long, aes(x = reorder(Country, -Count), y = Count, fill = C
   scale_y_continuous(labels = scales::comma)
 ```
 
-![Biểu đồ hiển thị tổng số ca mắc, hồi phục và tử vong của 10 quốc gia có số ca mắc cao nhất](image\image7.png)
+![image](https://github.com/user-attachments/assets/88137dd2-edca-43d4-94c1-c4e0358f9e40)
 
 ### 6.4. Biểu đồ hiển thị tổng số ca mắc, hồi phục và tử vong của 10 quốc gia có số ca mắc thấp nhất
 
@@ -193,7 +198,7 @@ ggplot(bottom_countries_long, aes(x = reorder(Country, -Count), y = Count, fill 
   scale_y_continuous(labels = scales::comma)
 ```
 
-![Biểu đồ hiển thị tổng số ca mắc, hồi phục và tử vong của 10 quốc gia có số ca mắc thấp nhất](image\image8.png)
+![image](https://github.com/user-attachments/assets/b6251021-0ba7-4200-8bb8-fbbb8ae4fd16)
 
 ### 7. Biểu đồ hiển thị và so sánh tống số ca nhiễm và hồi phục của các châu lục
 
@@ -211,7 +216,7 @@ ggplot(continent_summary, aes(x = ObservationDate)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-![Biểu đồ hiển thị và so sánh tống số ca nhiễm và hồi phục của các châu lục](image\image9.png)
+![image](https://github.com/user-attachments/assets/23f7c1f2-98ab-40af-8487-5324a675ad44)
 
 ### 8.Biểu đồ hiển thị và so sánh tổng số ca nhiễm và hồi phục của các châu lục
 
@@ -230,7 +235,7 @@ ggplot(continent_summary, aes(x = ObservationDate)) +
           labRow = format(formatted_dates, "%d-%m-%Y"))
 ```
 
-![Biểu đồ hiển thị và so sánh tổng số ca nhiễm và hồi phục của các châu lục (biểu đồ nhiệt)](image\image10.png)
+![image](https://github.com/user-attachments/assets/71a9d731-d27b-4cfe-9bab-87517eeea3ee)
 
 ## 9. Kết luận
 
