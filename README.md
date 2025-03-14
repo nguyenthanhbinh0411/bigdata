@@ -61,7 +61,20 @@ covid_summary <- covid_summary %>%
   )
 ```
 
-### 5.2. Phân cụm K-Means
+### 5.2.1. Xác định số cụm tối ưu bằng phương pháp Elbow
+
+```r
+# Vẽ đồ thị WCSS theo số cụm k
+plot(1:10, wcss, type = "b", pch = 19, frame = FALSE,
+     xlab = "Số cụm K",
+     ylab = "Tổng phương sai nội bộ (WCSS)",
+     main = "Phương pháp Elbow để xác định số cụm tối ưu")
+
+# Tự động xác định số cụm tối ưu bằng phương pháp Elbow
+optimal_k <- which(diff(diff(wcss)) == min(diff(diff(wcss)))) + 1
+```
+
+### 5.2.2. Phân cụm K-Means
 
 - Dữ liệu được chuẩn hóa trước khi phân cụm.
 - Sử dụng phương pháp K-Means với 3 cụm.
@@ -83,7 +96,6 @@ fviz_cluster(kmeans_result, data = covid_scaled, geom = "point", ellipse.type = 
 ```
 
 ![image](https://github.com/user-attachments/assets/6e133fc1-6c28-4c82-a253-bcb1c83f8010)
-
 
 **Biểu đồ:** Thể hiện phần trăm ca nhiễm của từng cụm:
 
@@ -118,7 +130,6 @@ ggplot(covid_summary, aes(x = ObservationDate, y = Total_Confirmed)) +
 
 ![image](https://github.com/user-attachments/assets/c2625af9-3275-4d90-83e5-e86f306e7e14)
 
-
 ## 6. Trực quan hóa Dữ liệu
 
 ### 6.1. Biểu đồ phân tán số ca nhiễm và tử vong
@@ -139,7 +150,6 @@ ggplot(covid_latest, aes(x = Total_Confirmed, y = Total_Deaths, color = as.facto
 
 ![image](https://github.com/user-attachments/assets/e23783cc-98c7-463a-987f-fdc0987e5988)
 
-
 ### 6.2. Heatmap mức độ tập trung dịch bệnh
 
 **Biểu đồ:** Heatmap cho 10 quốc gia có số ca nhiễm cao nhất:
@@ -150,7 +160,6 @@ plot_heatmap(c(top_10_countries, "Total_Confirmed"), "Heatmap - 10 quốc gia nh
 
 ![image](https://github.com/user-attachments/assets/6183003f-9902-4cca-9840-9ee27bd73c62)
 
-
 **Biểu đồ:** Heatmap cho 10 quốc gia có số tử vong cao nhất:
 
 ```r
@@ -158,7 +167,6 @@ plot_heatmap(c(top_10_death_countries, "Total_Deaths"), "Heatmap - 10 quốc gia
 ```
 
 ![image](https://github.com/user-attachments/assets/e97a7a13-9d9d-48e3-b58e-5c1afe645355)
-
 
 ### 6.3. Biểu đồ hiển thị tổng số ca mắc, hồi phục và tử vong của 10 quốc gia có số ca mắc cao nhất
 
@@ -240,3 +248,17 @@ ggplot(continent_summary, aes(x = ObservationDate)) +
 ## 9. Kết luận
 
 Dự án giúp trực quan hóa và phân tích dữ liệu COVID-19 với Sparklyr và ggplot2. Phân cụm K-Means giúp phân loại quốc gia theo mức độ ảnh hưởng của đại dịch. Các biểu đồ hỗ trợ đánh giá xu hướng dịch bệnh và sự ảnh hưởng trên toàn cầu.
+
+## 10. Dự báo xu hướng lây nhiễm COVID-19 bằng mô hình ARIMA
+
+```r
+# Vẽ biểu đồ dự báo
+forecast::autoplot(forecast_result) +
+  labs(
+    title = "Dự báo xu hướng lây nhiễm COVID-19 (30 ngày tiếp theo)",
+    x = "Ngày",
+    y = "Số ca nhiễm",
+    subtitle = "Dự báo dựa trên mô hình ARIMA"
+  ) +
+  theme_minimal()
+```
