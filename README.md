@@ -64,15 +64,30 @@ covid_summary <- covid_summary %>%
 ### 5.2.1. Xác định số cụm tối ưu bằng phương pháp Elbow
 
 ```r
-# Vẽ đồ thị WCSS theo số cụm k
-plot(1:10, wcss, type = "b", pch = 19, frame = FALSE,
-     xlab = "Số cụm K",
-     ylab = "Tổng phương sai nội bộ (WCSS)",
-     main = "Phương pháp Elbow để xác định số cụm tối ưu")
-
-# Tự động xác định số cụm tối ưu bằng phương pháp Elbow
-optimal_k <- which(diff(diff(wcss)) == min(diff(diff(wcss)))) + 1
+# Trực quan hóa kết quả phân cụm
+fviz_cluster(kmeans_result, data = covid_scaled, geom = "point", ellipse.type = "convex") +
+  scale_color_manual(values = cluster_colors, aesthetics = "colour") +
+  scale_fill_manual(values = cluster_colors, aesthetics = "fill") +
+  labs(title = "Kết quả phân cụm các quốc gia theo mức độ ảnh hưởng dịch COVID-19") +
+  theme_minimal() +
+  theme(legend.position = "top")
 ```
+![image](https://github.com/user-attachments/assets/52f9464e-680d-4b02-95b7-e97c73311d5f)
+
+```r
+# Vẽ biểu đồ cột thể hiện phần trăm ca nhiễm của từng cụm
+ggplot(cluster_cases, aes(x = Cluster, y = Percentage, fill = Cluster)) +
+  geom_bar(stat = "identity", color = "black", width = 0.6) +
+  scale_fill_manual(values = cluster_colors) +
+  geom_text(aes(label = paste0(round(Percentage, 1), "%\n(", format(Total_Cases, big.mark = "."), " ca)")), 
+            vjust = -0.3, size = 4) +
+  ylim(0, max(cluster_cases$Percentage) + 5) +
+  labs(title = "Tỷ lệ phần trăm ca nhiễm của các cụm",
+       x = "Cụm", y = "Phần trăm ca nhiễm (%)") +
+  theme_minimal()
+```
+![image](https://github.com/user-attachments/assets/442f956e-aef9-4646-9a77-4a7cea9b5694)
+
 
 ### 5.2.2. Phân cụm K-Means
 
@@ -262,3 +277,4 @@ forecast::autoplot(forecast_result) +
   ) +
   theme_minimal()
 ```
+![image](https://github.com/user-attachments/assets/a82bd825-42b6-4fb3-a584-422e5e99e936)
